@@ -1,0 +1,13 @@
+<html>
+    <title>Сайт Алексея Исаева</title>
+    <h1>Алексей Исаев</h1>
+
+    <div class="article-list">
+        {% for article in articles %}
+            <div class="aricle">
+                <h2 class="article-title">{{ article.title }}</h2>
+                <p class="article-summary">{{ article.summary }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</html>
