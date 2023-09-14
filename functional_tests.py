@@ -8,10 +8,12 @@ class BasicInstallTest(unittest.TestCase):
     Зшаел в гугл, ввел запрос и кликнул по одной из ссылок'''
 
     def setUp(self):
+        #открываем главную странциу
         self.browser = webdriver.Chrome()  
         self.browser.get('http://localhost:8000')
 
     def tearDown(self):  
+        #закрываем сайт
         self.browser.quit()
 
     def test_page_title(self):  
@@ -29,12 +31,26 @@ class BasicInstallTest(unittest.TestCase):
         article_list = self.browser.find_elements(By.CLASS_NAME, 'article-list')
         self.assertTrue(article_list)
 
-    def test_home_page_articales_look_correct(self):
+    def test_home_page_articles_look_correct(self):
         # У кажлй статьт есть заголовок  и 1 абзац с текстом 
         article_title = self.browser.find_elements(By.CLASS_NAME, 'article-title')
         article_summary = self.browser.find_elements(By.CLASS_NAME, 'article-summary')
         self.assertTrue(article_title)
         self.assertTrue(article_summary)
+
+    def test_home_page_article_title_link_leads_to_article_page(self):
+        # При клике по заголовку открывается статья с полным текстом
+        # Находим заголовок статьи 
+        article_title = self.browser.find_element(By.CLASS_NAME, 'article-title')
+        article_title_text = article_title.text
+        # Находим ссылку в заголовке статьи
+        article_link = article_title.find_element(By.TAG_NAME, 'a')
+        # Переход по ссылке
+        self.browser.get(article_link.get_attribute('href'))
+        # На октрытой странице, та же статься с полным текстом
+        article_page_title = self.browser.find_element(By.CLASS_NAME, 'article-title')
+        self.assertEqual(article_title_text, article_page_title.text)
+
 
 
 if __name__ == '__main__':  

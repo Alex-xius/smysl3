@@ -5,7 +5,9 @@
     <div class="article-list">
         {% for article in articles %}
             <div class="aricle">
-                <h2 class="article-title">{{ article.title }}</h2>
+                <h2 class="article-title">
+                    <a href='{{ article.get_url }}'>{{ article.title }}</a>
+                </h2>
                 <p class="article-summary">{{ article.summary }}</p>
             </div>
         {% endfor %}

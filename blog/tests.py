@@ -1,9 +1,31 @@
 from django.urls import resolve
 from django.test import TestCase
 from django.http import HttpRequest
-from blog.views import home_page
+from blog.views import home_page, article_page
 from blog.models import Article
 from datetime import datetime
+from pytils.translit import slugify
+
+
+class ArticlePageTest(TestCase):
+
+    def test_article_page_dysplays_correct_article(self):
+        Article.objects.create(
+            title='title 1',
+            full_text='full_text 1',
+            summary='summary 1',
+            category='category 1',
+            pubdate=datetime.now(),
+            slug='title-1'
+            )
+
+        request = HttpRequest()
+        response = article_page(request, 'title-1')
+        html = response.content.decode('utf8')
+
+        self.assertIn('title 1', html)
+        self.assertNotIn('summary 1', html)
+        self.assertIn('text 1', html)
 
 
 class HomePageTest(TestCase):
@@ -14,23 +36,27 @@ class HomePageTest(TestCase):
             full_text='full_text 1',
             summary='summary 1',
             category='category 1',
-            pubdate=datetime.now()
+            pubdate=datetime.now(),
+            slug='title-1'
             )
         Article.objects.create(
             title='title 2',
             full_text='full_text 2',
             summary='summary 2',
             category='category 2',
-            pubdate=datetime.now()
+            pubdate=datetime.now(),
+            slug='title-2'
         )
         request = HttpRequest()
         response = home_page(request)
         html = response.content.decode('utf8')
         self.assertIn('title 1', html)
+        self.assertIn('blog/title-1', html)
         self.assertIn('summary 1', html)
         self.assertNotIn('text 1', html)
 
         self.assertIn('title 2', html)
+        self.assertIn('blog/title-2', html)
         self.assertIn('summary 2', html)
         self.assertNotIn('text 2', html)
 
@@ -61,7 +87,8 @@ class ArticleModelTest(TestCase):
             full_text='full_text 1',
             summary='summary 1',
             category='category 1',
-            pubdate=datetime.now()
+            pubdate=datetime.now(),
+            slug='title-1'
         )
         article1.save()
 
@@ -71,7 +98,8 @@ class ArticleModelTest(TestCase):
             full_text='full_text 2',
             summary='summary 2',
             category='category 2',
-            pubdate=datetime.now()
+            pubdate=datetime.now(),
+            slug='title-1'
         )
         article2.save()
 
@@ -88,4 +116,14 @@ class ArticleModelTest(TestCase):
         self.assertEqual(
             all_articles[1].title,
             article2.title
+        )
+
+        self.assertEqual(
+            all_articles[0].slug,
+            article1.slug
+        )
+
+        self.assertEqual(
+            all_articles[1].slug,
+            article2.slug
         )
