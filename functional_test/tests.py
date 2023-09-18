@@ -1,16 +1,27 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from django.test import LiveServerTestCase
+from blog.models import Article
+from datetime import datetime
 
 
-class BasicInstallTest(unittest.TestCase):  
+class BasicInstallTest(LiveServerTestCase):  
     '''Я решил прокачаться в когортном анализе
     Зшаел в гугл, ввел запрос и кликнул по одной из ссылок'''
 
     def setUp(self):
         #открываем главную странциу
         self.browser = webdriver.Chrome()  
-        self.browser.get('http://localhost:8000')
+        Article.objects.create(
+            title='title 1',
+            full_text='full_text 1',
+            summary='summary 1',
+            category='category 1',
+            pubdate=datetime.now(),
+            slug='title-1'
+            )
+        self.browser.get(self.live_server_url)
 
     def tearDown(self):  
         #закрываем сайт
@@ -19,12 +30,20 @@ class BasicInstallTest(unittest.TestCase):
     def test_page_title(self):  
         # В браузере открылся сайт (по адресу http://127.0.0.1:8000)
         # В заголовке было написано 'Сайт Алексея Исаева'
-        self.assertIn('Сайт Алексея Исаева', self.browser.title)  
+        self.assertIn('Сайт Алексея Исаева', self.browser.title)
 
     def test_page_header(self):  
         # В шапке сайта написанно "Алексей Исаев"
         header = self.browser.find_element(By.TAG_NAME, 'h1')
         self.assertIn('Алексей Исаев', header.text) 
+
+    def test_layout_and_styling(self):
+        # У заголовка сайта есть отступ > 10 px
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+        
+        header = self.browser.find_element(By.TAG_NAME, 'h1')
+        self.assertTrue(header.location['x'] > 10)
 
     def test_home_page_blog(self):
         #Под шапкой расположен блок со статьями
@@ -52,7 +71,4 @@ class BasicInstallTest(unittest.TestCase):
         self.assertEqual(article_title_text, article_page_title.text)
 
 
-
-if __name__ == '__main__':  
-    unittest.main()
 
