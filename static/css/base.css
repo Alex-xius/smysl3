@@ -1,0 +1,69 @@
+@font-face {
+  font-family: rubik-regular;
+  src: url("/static/fonts/Rubik-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: rubik-semibold;
+  src: url("/static/fonts/Rubik-SemiBold.ttf") format("truetype");
+}
+
+
+body {
+  color: #333;
+  font-family: rubik-regular, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.page-header {
+  height: 9em;
+  margin-left: -50px;
+}
+
+h1, h2, h3 {
+  font-family: rubik-semibold, Helvetica, sans-serif;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+h4, h5, h6 {
+  font-size: 1.3em;
+}
+
+h1.avatar-top {
+  font-size: 0.9em;
+  margin-top: 2em;
+}
+
+h1.avatar-top img {
+  width: 32px;
+  margin-right: .2em;
+  clip-path: circle();
+  margin-top: -4px;
+}
+
+.article {
+  margin-bottom: 3em;
+
+}
+
+h2.article-title {
+  margin-bottom: .1em;
+}
+
+h2.article-title a {
+  text-decoration: none;
+  color: #333;
+}
+
+h2.article-title a:hover {
+  color: #555;
+}
+
+
