@@ -8,6 +8,11 @@
   src: url("/static/fonts/Rubik-SemiBold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: rubik-light;
+  src: url("/static/fonts/Rubik-Light.ttf") format("truetype");
+}
+
 
 body {
   color: #333;
@@ -24,16 +29,22 @@ h1, h2, h3 {
   font-family: rubik-semibold, Helvetica, sans-serif;
 }
 
-h2 {
+h1 {
   font-size: 1.5em;
 }
 
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.3em;
+}
+
 h3 {
-  font-size: 1em;
+  font-size: 1.1em;
 }
 
 h4, h5, h6 {
-  font-size: 1.3em;
+  font-size: 1em;
 }
 
 h1.avatar-top {
@@ -66,4 +77,74 @@ h2.article-title a:hover {
   color: #555;
 }
 
+.text-accent {
+  padding: 1rem 1rem 0.1rem 1rem;
+  background-color:#fdf6e3;
+  margin-bottom: 1rem;
+  font-family: rubik-light;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 80%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+figure table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+tr {
+  font-family: rubik-regular;
+  font-size: .875rem;
+  line-height: inherit;
+}
+
+td, th {
+  padding: .5rem 1.5rem .5rem 0;
+}
+
+@media only screen and (max-width: 960px){
+  table {
+    width: 100%;
+  }
+}
+
+body .gist {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+body .gist .gist-file, body .gist .gist-file .gist-data {
+  border: 0;
+  background-color: #fdf6e3;
+}
+
+body .gist .gist-file {
+  padding: 1rem;
+  background-color: #fdf6e3;
+}
+
+body .gist .blob-wrapper {
+  background-color: #fdf6e3;
+  padding: 10em 0 10em .5rem;
+  overflow-x: scroll;
+}
+
+body .gist table.highlight {
+  background-color: transparent;
+}
+
+body .gist .gist-meta, body .gist .js-line-number {
+  display: none;
+}
+
+body .gist .blob-code-inner {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: .9rem;
+  line-height: inherit;
+}
 
