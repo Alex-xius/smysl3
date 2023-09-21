@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from django.test import LiveServerTestCase
 from blog.models import Article
 from datetime import datetime
+import os
 
 
 class BasicInstallTest(LiveServerTestCase):  
@@ -11,8 +12,7 @@ class BasicInstallTest(LiveServerTestCase):
     Зшаел в гугл, ввел запрос и кликнул по одной из ссылок'''
 
     def setUp(self):
-        #открываем главную странциу
-        self.browser = webdriver.Chrome()  
+        # создаём объект в базе 
         Article.objects.create(
             title='title 1',
             full_text='full_text 1',
@@ -21,6 +21,13 @@ class BasicInstallTest(LiveServerTestCase):
             pubdate=datetime.now(),
             slug='title-1'
             )
+        
+        self.browser = webdriver.Chrome()  
+        # поулчаем переменную STAGING_SERVER, если таковая имеется
+        staging_server = os.environ.get('STAGING_SERVER')
+        if staging_server:
+            self.life_server_url = 'http://' + staging_server
+        #открываем главную странциу
         self.browser.get(self.live_server_url)
 
     def tearDown(self):  
