@@ -1,16 +1,16 @@
 @font-face {
   font-family: rubik-regular;
-  src: url("/static/fonts/Rubik-Regular.ttf") format("truetype");
+  src: url("../fonts/Rubik-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: rubik-semibold;
-  src: url("/static/fonts/Rubik-SemiBold.ttf") format("truetype");
+  src: url("../fonts/Rubik-SemiBold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: rubik-light;
-  src: url("/static/fonts/Rubik-Light.ttf") format("truetype");
+  src: url("../fonts/Rubik-Light.ttf") format("truetype");
 }
 
 
